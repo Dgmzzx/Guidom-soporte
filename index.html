@@ -44,10 +44,11 @@
   <div class="view active" id="view-inventario">
     <div class="stat-row" id="stat-row"></div>
 
-    <div class="row" style="align-items:stretch; margin-bottom:16px;">
+    <div class="row" style="align-items:stretch; margin-bottom:16px; position:relative;">
       <div class="search-wrap" style="flex:1; margin-bottom:0;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" id="search-input" placeholder="Buscar material...">
+        <input type="text" id="search-input" placeholder="Buscar material..." autocomplete="off">
+        <div class="autocomplete-list" id="autocomplete-list"></div>
       </div>
       <button class="btn btn-ghost" id="export-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;vertical-align:-2px;margin-right:6px;"><path d="M12 15V3M12 15l-4-4M12 15l4-4"/><path d="M3 17v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2"/></svg>Exportar a Excel
@@ -59,6 +60,7 @@
         <thead>
           <tr>
             <th>Material</th>
+            <th>Categoría</th>
             <th class="num">Entradas</th>
             <th class="num">Salidas</th>
             <th class="num">Existencia</th>
@@ -100,6 +102,10 @@
           <label>Fecha</label>
           <input type="date" id="mov-fecha">
         </div>
+        <div class="field">
+          <label>Observación</label>
+          <input type="text" id="mov-observacion" placeholder="Opcional">
+        </div>
         <button class="btn btn-amber" id="mov-add">Registrar</button>
       </div>
     </div>
@@ -113,6 +119,7 @@
             <th>Material</th>
             <th>Tipo</th>
             <th class="num">Cantidad</th>
+            <th>Observación</th>
             <th></th>
           </tr>
         </thead>
@@ -135,20 +142,64 @@
           <input type="text" id="mat-nombre" placeholder="Ej. Tornillo 1/4">
         </div>
         <div class="field">
-          <label>Stock mínimo</label>
-          <input type="number" id="mat-minimo" placeholder="0" min="0">
+          <label>Categoría</label>
+          <input type="text" id="mat-categoria" placeholder="Ej. Electricidad" list="cat-list">
+          <datalist id="cat-list">
+            <option value="Electricidad">
+            <option value="Plomería">
+            <option value="Ferretería">
+            <option value="Herramientas">
+            <option value="Pintura">
+            <option value="Carpintería">
+          </datalist>
         </div>
-        <button class="btn btn-amber" id="mat-add">Agregar</button>
+        <div class="field">
+          <label>Unidad</label>
+          <select id="mat-unidad">
+            <option value="piezas">piezas</option>
+            <option value="kg">kg</option>
+            <option value="metros">metros</option>
+            <option value="litros">litros</option>
+            <option value="caja">caja</option>
+            <option value="rollo">rollo</option>
+          </select>
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <div class="field">
+          <label>Cantidad inicial</label>
+          <input type="number" id="mat-cantidad" placeholder="0" min="0">
+        </div>
+        <div class="field">
+          <label>Umbral</label>
+          <input type="number" id="mat-umbral" placeholder="0" min="0">
+        </div>
+        <div class="field">
+          <label>Ubicación</label>
+          <input type="text" id="mat-ubicacion" placeholder="Ej. Estante A3">
+        </div>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <div class="field" style="flex:3;">
+          <label>Observaciones</label>
+          <input type="text" id="mat-observaciones" placeholder="Opcional">
+        </div>
+        <div class="field" style="flex:0; justify-content:flex-end;">
+          <button class="btn btn-amber" id="mat-add" style="margin-top:22px;">Agregar</button>
+        </div>
       </div>
     </div>
 
     <div class="panel" style="padding:0;">
-      <h2 style="padding:18px 20px 0;">Materiales dados de alta <span class="n" id="mat-count"></span></h2>
+      <h2 style="padding:18px 20px 0;">Materiales <span class="n" id="mat-count"></span></h2>
       <table>
         <thead>
           <tr>
             <th>Material</th>
-            <th class="num">Stock mínimo</th>
+            <th>Categoría</th>
+            <th class="num">Cantidad</th>
+            <th class="num">Umbral</th>
+            <th>Ubicación</th>
             <th></th>
           </tr>
         </thead>
@@ -163,6 +214,8 @@
 
 </div>
 
+<div class="toast" id="toast"></div>
+
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal-card">
     <div class="modal-msg" id="modal-msg"></div>
@@ -173,6 +226,6 @@
   </div>
 </div>
 
-<script type="module" src="script.js"></script>
+<script type="module" src="js/app.js"></script>
 </body>
 </html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bitácora de Almacén</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="top">
+    <div>
+      <div class="brand">Guidom<span>·</span>Soporte</div>
+      <div class="tagline">CONTEO DE ENTRADAS Y SALIDAS</div>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-view="inventario">Inventario</button>
+    <button class="tab-btn" data-view="movimientos">Movimientos</button>
+    <button class="tab-btn" data-view="materiales">Materiales</button>
+  </nav>
+
+  <!-- INVENTARIO -->
+  <div class="view active" id="view-inventario">
+    <div class="stat-row" id="stat-row"></div>
+
+    <div class="row" style="align-items:stretch; margin-bottom:16px;">
+      <div class="search-wrap" style="flex:1; margin-bottom:0;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-input" placeholder="Buscar material...">
+      </div>
+      <button class="btn btn-ghost" id="export-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;vertical-align:-2px;margin-right:6px;"><path d="M12 15V3M12 15l-4-4M12 15l4-4"/><path d="M3 17v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2"/></svg>Exportar a Excel
+      </button>
+    </div>
+
+    <div class="panel" style="padding:0;">
+      <table>
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th class="num">Entradas</th>
+            <th class="num">Salidas</th>
+            <th class="num">Existencia</th>
+            <th>Nivel</th>
+            <th>Última salida</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="inv-body"></tbody>
+      </table>
+      <div class="empty" id="inv-empty" style="display:none;">
+        <div class="big">Aún no hay materiales</div>
+        Ve a la pestaña "Materiales" para dar de alta el primero.
+      </div>
+    </div>
+  </div>
+
+  <!-- MOVIMIENTOS -->
+  <div class="view" id="view-movimientos">
+    <div class="panel">
+      <h2>Registrar movimiento</h2>
+      <div class="row">
+        <div class="field">
+          <label>Material</label>
+          <select id="mov-material"></select>
+        </div>
+        <div class="field">
+          <label>Tipo</label>
+          <select id="mov-tipo">
+            <option value="Entrada">Entrada</option>
+            <option value="Salida">Salida</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Cantidad</label>
+          <input type="number" id="mov-cantidad" placeholder="0" min="0">
+        </div>
+        <div class="field">
+          <label>Fecha</label>
+          <input type="date" id="mov-fecha">
+        </div>
+        <button class="btn btn-amber" id="mov-add">Registrar</button>
+      </div>
+    </div>
+
+    <div class="panel" style="padding:0;">
+      <h2 style="padding:18px 20px 0;">Historial <span class="n" id="mov-count"></span></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Material</th>
+            <th>Tipo</th>
+            <th class="num">Cantidad</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="mov-body"></tbody>
+      </table>
+      <div class="empty" id="mov-empty" style="display:none;">
+        <div class="big">Sin movimientos todavía</div>
+        Registra una entrada o salida arriba.
+      </div>
+    </div>
+  </div>
+
+  <!-- MATERIALES -->
+  <div class="view" id="view-materiales">
+    <div class="panel">
+      <h2>Nuevo material</h2>
+      <div class="row">
+        <div class="field">
+          <label>Nombre</label>
+          <input type="text" id="mat-nombre" placeholder="Ej. Tornillo 1/4">
+        </div>
+        <div class="field">
+          <label>Stock mínimo</label>
+          <input type="number" id="mat-minimo" placeholder="0" min="0">
+        </div>
+        <button class="btn btn-amber" id="mat-add">Agregar</button>
+      </div>
+    </div>
+
+    <div class="panel" style="padding:0;">
+      <h2 style="padding:18px 20px 0;">Materiales dados de alta <span class="n" id="mat-count"></span></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th class="num">Stock mínimo</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="mat-body"></tbody>
+      </table>
+      <div class="empty" id="mat-empty" style="display:none;">
+        <div class="big">No hay materiales</div>
+        Agrega el primero con el formulario de arriba.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module" src="script.js"></script>
+</body>
+</html>

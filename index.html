@@ -10,13 +10,28 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="app">
+
+<div id="auth-overlay" class="auth-overlay">
+  <div class="auth-card">
+    <div class="auth-brand">Guidom<span>·</span>Soporte</div>
+    <div class="auth-tagline">CONTEO DE ENTRADAS Y SALIDAS</div>
+    <form id="auth-form">
+      <input type="email" id="auth-email" placeholder="Correo electrónico" autocomplete="email" required>
+      <input type="password" id="auth-password" placeholder="Contraseña" autocomplete="current-password" required>
+      <div class="auth-error" id="auth-error"></div>
+      <button type="submit" class="btn btn-amber" id="auth-submit">Iniciar sesión</button>
+    </form>
+  </div>
+</div>
+
+<div class="app" style="display:none;">
 
   <header class="top">
     <div>
       <div class="brand">Guidom<span>·</span>Soporte</div>
       <div class="tagline">CONTEO DE ENTRADAS Y SALIDAS</div>
     </div>
+    <button class="btn btn-ghost" id="logout-btn" style="font-size:12px;">Cerrar sesión</button>
   </header>
 
   <nav class="tabs">

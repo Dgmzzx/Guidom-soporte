@@ -1,12 +1,12 @@
 :root{
-    --bg: #12161d;
-    --panel: #1b212b;
-    --panel-2: #212836;
-    --line: #2b3341;
-    --text: #e7eaee;
-    --muted: #8993a3;
-    --amber: #e6a23c;
-    --amber-dim: rgba(230,162,60,0.14);
+    --bg: #161233;
+    --panel: #1F1A45;
+    --panel-2: #2A2358;
+    --line: #3A3270;
+    --text: #F5F3EA;
+    --muted: #9C94C4;
+    --amber: #F2C230;
+    --amber-dim: rgba(242,194,48,0.14);
     --green: #4fae82;
     --green-dim: rgba(79,174,130,0.14);
     --red: #e5605a;

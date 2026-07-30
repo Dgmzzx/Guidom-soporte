@@ -18,6 +18,18 @@ function showToast(msg) {
   showToast._t = setTimeout(() => t.classList.remove('show'), 2200);
 }
 
+function showConfirmModal(msg, onConfirm) {
+  const overlay = $('#modal-overlay');
+  $('#modal-msg').textContent = msg;
+  overlay.classList.add('show');
+  const confirmBtn = $('#modal-confirm');
+  const cancelBtn = $('#modal-cancel');
+  const close = () => overlay.classList.remove('show');
+  cancelBtn.onclick = close;
+  confirmBtn.onclick = () => { close(); onConfirm(); };
+  overlay.onclick = (e) => { if (e.target === overlay) close(); };
+}
+
 async function loadData() {
   const { data: mats, error: errMats } = await supabase.from('materials').select('*').order('name');
   if (errMats) { console.error(errMats); showToast('Error al cargar materiales'); return; }
@@ -130,13 +142,14 @@ function renderMateriales() {
     btn.addEventListener('click', async () => {
       const id = btn.dataset.del;
       const mat = materials.find(m => m.id === id);
-      if (!confirm(`¿Eliminar "${mat.name}"? También se borrará su historial de movimientos.`)) return;
-      const { error } = await supabase.from('materials').delete().eq('id', id);
-      if (error) { showToast('Error al eliminar'); return; }
-      materials = materials.filter(m => m.id !== id);
-      movements = movements.filter(mv => mv.material_id !== id);
-      renderAll();
-      showToast('Material eliminado');
+      showConfirmModal(`¿Eliminar "${mat.name}"? También se borrará su historial de movimientos.`, async () => {
+        const { error } = await supabase.from('materials').delete().eq('id', id);
+        if (error) { showToast('Error al eliminar'); return; }
+        materials = materials.filter(m => m.id !== id);
+        movements = movements.filter(mv => mv.material_id !== id);
+        renderAll();
+        showToast('Material eliminado');
+      });
     });
   });
 }
@@ -191,11 +204,13 @@ function renderMovimientos() {
   body.querySelectorAll('[data-delmv]').forEach(btn => {
     btn.addEventListener('click', async () => {
       const id = btn.dataset.delmv;
-      const { error } = await supabase.from('movements').delete().eq('id', id);
-      if (error) { showToast('Error al borrar'); return; }
-      movements = movements.filter(mv => mv.id !== id);
-      renderAll();
-      showToast('Movimiento borrado');
+      showConfirmModal('¿Borrar este movimiento?', async () => {
+        const { error } = await supabase.from('movements').delete().eq('id', id);
+        if (error) { showToast('Error al borrar'); return; }
+        movements = movements.filter(mv => mv.id !== id);
+        renderAll();
+        showToast('Movimiento borrado');
+      });
     });
   });
 }

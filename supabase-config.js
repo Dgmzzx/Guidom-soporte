@@ -1,2 +1,2 @@
-export const SUPABASE_URL = 'https://phkcybnlztjohlbzlfff.supabase.co/rest/v1/';
+export const SUPABASE_URL = 'https://eeexpzwewlcuvvedyxbh.supabase.co/rest/v1/';
 export const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBoa2N5Ym5senRqb2hsYnpsZmZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM4OTYwMzMsImV4cCI6MjA5OTQ3MjAzM30.Hws7sv9H0fBrXaU-FqBwR82c1G6yXwnPbQPsqoVQsaw';

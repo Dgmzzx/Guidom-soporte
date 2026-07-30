@@ -272,12 +272,78 @@
   ::-webkit-scrollbar-thumb{ background:var(--line); border-radius:4px; }
 
   @media (max-width:640px){
+    .app{ padding:20px 14px 60px; }
+
+    header.top .brand{ font-size:18px; }
+    header.top .tagline{ font-size:10.5px; }
+
+    nav.tabs{ width:100%; }
+    nav.tabs button{ flex:1; text-align:center; font-size:12.5px; padding:8px 8px; }
+
     .row{ flex-direction:column; align-items:stretch; }
     .field{ min-width:0; }
+
+    .stat-row{ gap:8px; }
+    .stat{ flex:1 1 calc(50% - 4px); min-width:0; padding:12px; }
+    .stat .value{ font-size:18px; }
+    .stat .label{ font-size:10px; }
+
+    #export-btn{ width:100%; justify-content:center; }
+
     table thead{ display:none; }
-    tbody tr{ display:block; border-bottom:1px solid var(--line); padding:10px 0; }
-    tbody td{ display:flex; justify-content:space-between; border:none; padding:4px 10px; }
-    tbody td::before{ content: attr(data-label); color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.04em; }
+    tbody tr{ display:block; border-bottom:1px solid var(--line); padding:8px 0; }
+    tbody td{ display:flex; justify-content:space-between; border:none; padding:3px 10px; font-size:12px; }
+    tbody td::before{ content:attr(data-label); color:var(--muted); font-size:10px; text-transform:uppercase; letter-spacing:.04em; }
+
+    .stockbar .track{ width:60px; }
+    .stockbar .mono{ font-size:10px; }
+
+    .toast{ width:90vw; text-align:center; font-size:12px; }
+
+    .auth-card{ padding:28px 20px; }
+    .auth-card input{ font-size:14px; }
+    .auth-tagline{ font-size:10.5px; margin-bottom:20px; }
+
+    .modal-card{ padding:20px; }
+    .modal-msg{ font-size:13px; }
+    .modal-actions{ flex-direction:column; }
+    .modal-actions .btn{ width:100%; justify-content:center; }
+
+    .autocomplete-item{ padding:12px; font-size:13px; }
+    .autocomplete-item .ac-cat{ font-size:10px; }
+  }
+
+  @media (max-width:420px){
+    .app{ padding:14px 10px 40px; }
+
+    header.top .brand{ font-size:16px; }
+    header.top .tagline{ font-size:9.5px; letter-spacing:0.02em; }
+
+    nav.tabs button{ font-size:11.5px; padding:6px 4px; }
+
+    .stat{ flex:1 1 100%; }
+    .stat .value{ font-size:16px; }
+
+    .panel{ padding:14px; }
+    .panel h2{ font-size:13px; }
+    .panel h2 .n{ font-size:11px; }
+
+    input, select{ font-size:13px; padding:8px 10px; }
+    button.btn{ font-size:12px; padding:8px 14px; }
+
+    tbody td{ font-size:11px; padding:2px 8px; }
+
+    .stockbar .track{ width:50px; }
+
+    .modal-card{ padding:16px; }
+    .modal-msg{ font-size:12px; margin-bottom:16px; }
+    .auth-card{ padding:20px 16px; }
+    .auth-brand{ font-size:18px; }
+
+    .autocomplete-item{ padding:10px; font-size:12px; }
+    .autocomplete-item .ac-qty{ font-size:11px; }
+
+    .toast{ padding:10px 14px; font-size:11px; }
   }
 
   .auth-overlay{

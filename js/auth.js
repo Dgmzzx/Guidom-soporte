@@ -6,13 +6,14 @@ let session = null;
 async function checkAuth() {
   const { data: { session: sess } } = await supabase.auth.getSession();
   session = sess;
+  const app = document.querySelector('.app');
   if (sess) {
-    $('#auth-overlay').classList.remove('show');
-    document.querySelector('.app').style.display = 'block';
+    $('#auth-overlay')?.classList.remove('show');
+    if (app) app.style.display = 'block';
     return true;
   } else {
-    $('#auth-overlay').classList.add('show');
-    document.querySelector('.app').style.display = 'none';
+    $('#auth-overlay')?.classList.add('show');
+    if (app) app.style.display = 'none';
     return false;
   }
 }
@@ -20,13 +21,14 @@ async function checkAuth() {
 function setupAuth(onLogin) {
   supabase.auth.onAuthStateChange((event, sess) => {
     session = sess;
+    const app = document.querySelector('.app');
     if (sess) {
-      $('#auth-overlay').classList.remove('show');
-      document.querySelector('.app').style.display = 'block';
+      $('#auth-overlay')?.classList.remove('show');
+      if (app) app.style.display = 'block';
       if (typeof onLogin === 'function') onLogin();
     } else {
-      $('#auth-overlay').classList.add('show');
-      document.querySelector('.app').style.display = 'none';
+      $('#auth-overlay')?.classList.add('show');
+      if (app) app.style.display = 'none';
     }
   });
 

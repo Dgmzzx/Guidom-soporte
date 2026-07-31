@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movimientos — Guidom·Soporte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <header class="top">
+    <div>
+      <div class="brand">Guidom<span>·</span>Soporte</div>
+      <div class="tagline">CONTEO DE ENTRADAS Y SALIDAS</div>
+    </div>
+    <button class="btn btn-ghost" id="logout-btn" style="font-size:12px;">Cerrar sesión</button>
+  </header>
+
+  <nav class="tabs">
+    <a href="inventario.html" class="tab-btn">Inventario</a>
+    <a href="movimientos.html" class="tab-btn active">Movimientos</a>
+    <a href="materiales.html" class="tab-btn">Materiales</a>
+  </nav>
+
+  <div class="view active" id="view-movimientos">
+    <div class="panel">
+      <h2>Registrar movimiento</h2>
+      <div class="row">
+        <div class="field">
+          <label>Material</label>
+          <select id="mov-material"></select>
+        </div>
+        <div class="field">
+          <label>Tipo</label>
+          <select id="mov-tipo">
+            <option value="Entrada">Entrada</option>
+            <option value="Salida">Salida</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Cantidad</label>
+          <input type="number" id="mov-cantidad" placeholder="0" min="0">
+        </div>
+        <div class="field">
+          <label>Fecha</label>
+          <input type="date" id="mov-fecha">
+        </div>
+        <div class="field">
+          <label>Observación</label>
+          <input type="text" id="mov-observacion" placeholder="Opcional">
+        </div>
+        <button class="btn btn-amber" id="mov-add">Registrar</button>
+      </div>
+    </div>
+
+    <div class="panel" style="padding:0;">
+      <h2 style="padding:18px 20px 0;">Historial <span class="n" id="mov-count"></span></h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Material</th>
+            <th>Tipo</th>
+            <th class="num">Cantidad</th>
+            <th>Observación</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="mov-body"></tbody>
+      </table>
+      <div class="empty" id="mov-empty" style="display:none;">
+        <div class="big">Sin movimientos todavía</div>
+        Registra una entrada o salida arriba.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-msg" id="modal-msg"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="modal-cancel">Cancelar</button>
+      <button class="btn btn-danger" id="modal-confirm">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/pages/movements-page.js"></script>
+</body>
+</html>

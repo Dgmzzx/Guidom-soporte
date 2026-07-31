@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventario — Guidom·Soporte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+  <header class="top">
+    <div>
+      <div class="brand">Guidom<span>·</span>Soporte</div>
+      <div class="tagline">CONTEO DE ENTRADAS Y SALIDAS</div>
+    </div>
+    <button class="btn btn-ghost" id="logout-btn" style="font-size:12px;">Cerrar sesión</button>
+  </header>
+
+  <nav class="tabs">
+    <a href="inventario.html" class="tab-btn active">Inventario</a>
+    <a href="movimientos.html" class="tab-btn">Movimientos</a>
+    <a href="materiales.html" class="tab-btn">Materiales</a>
+  </nav>
+
+  <div class="view active" id="view-inventario">
+    <div class="stat-row" id="stat-row"></div>
+
+    <div class="row" style="align-items:stretch; margin-bottom:16px; position:relative;">
+      <div class="search-wrap" style="flex:1; margin-bottom:0;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-input" placeholder="Buscar material..." autocomplete="off">
+        <div class="autocomplete-list" id="autocomplete-list"></div>
+      </div>
+      <button class="btn btn-ghost" id="export-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;vertical-align:-2px;margin-right:6px;"><path d="M12 15V3M12 15l-4-4M12 15l4-4"/><path d="M3 17v2a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-2"/></svg>Exportar a Excel
+      </button>
+    </div>
+
+    <div class="panel" style="padding:0;">
+      <table>
+        <thead>
+          <tr>
+            <th>Material</th>
+            <th>Categoría</th>
+            <th class="num">Entradas</th>
+            <th class="num">Salidas</th>
+            <th class="num">Existencia</th>
+            <th>Nivel</th>
+            <th>Última salida</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="inv-body"></tbody>
+      </table>
+      <div class="empty" id="inv-empty" style="display:none;">
+        <div class="big">Aún no hay materiales</div>
+        Ve a la pestaña "Materiales" para dar de alta el primero.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-card">
+    <div class="modal-msg" id="modal-msg"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="modal-cancel">Cancelar</button>
+      <button class="btn btn-danger" id="modal-confirm">Eliminar</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/pages/inventory-page.js"></script>
+</body>
+</html>

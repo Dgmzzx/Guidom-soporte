@@ -1,11 +1,23 @@
 import type { ReactNode } from "react";
+import { redirect } from "next/navigation";
 import Header from "@/components/Header";
 import Tabs from "@/components/Tabs";
+import LogoutButton from "@/components/LogoutButton";
+import { createClient } from "@/lib/supabase/server";
 
-export default function AppLayout({ children }: { children: ReactNode }) {
+export default async function AppLayout({ children }: { children: ReactNode }) {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
   return (
     <main className="min-h-screen">
-      <Header />
+      <Header actions={<LogoutButton />} />
       <Tabs />
       <div className="mx-auto w-full max-w-6xl px-5 py-6 sm:px-8">{children}</div>
     </main>

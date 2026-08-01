@@ -1,12 +1,13 @@
 import type { ReactNode } from "react";
 
-type Tone = "entrada" | "salida" | "ok" | "low";
+type Tone = "entrada" | "salida" | "ok" | "low" | "neutral";
 
 const tones: Record<Tone, string> = {
   entrada: "border-flux/30 bg-flux/10 text-flux",
   salida: "border-safety/30 bg-safety/10 text-safety",
   ok: "border-flux/30 bg-flux/10 text-flux",
   low: "border-amber/30 bg-amber/10 text-amber",
+  neutral: "border-line bg-graphite/60 text-paper-dim",
 };
 
 export function Pill({ tone, children }: { tone: Tone; children: ReactNode }) {

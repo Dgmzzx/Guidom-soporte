@@ -9,6 +9,7 @@ export function ConfirmModal({
   message,
   confirmText = "Confirmar",
   tone = "danger",
+  loading = false,
   onConfirm,
   onCancel,
 }: {
@@ -17,6 +18,7 @@ export function ConfirmModal({
   message: ReactNode;
   confirmText?: string;
   tone?: "danger" | "amber";
+  loading?: boolean;
   onConfirm: () => void;
   onCancel: () => void;
 }) {
@@ -39,11 +41,11 @@ export function ConfirmModal({
           {message}
         </div>
         <div className="mt-6 flex justify-end gap-3">
-          <Button variant="ghost" onClick={onCancel}>
+          <Button variant="ghost" onClick={onCancel} disabled={loading}>
             Cancelar
           </Button>
-          <Button variant={tone === "danger" ? "danger" : "amber"} onClick={onConfirm}>
-            {confirmText}
+          <Button variant={tone === "danger" ? "danger" : "amber"} onClick={onConfirm} disabled={loading}>
+            {loading ? "Procesando..." : confirmText}
           </Button>
         </div>
       </div>

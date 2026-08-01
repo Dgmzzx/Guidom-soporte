@@ -4,10 +4,17 @@ import { createClient } from "@/lib/supabase/server";
 import { mensajeError, revalidateAll } from "./helpers";
 
 export type ActionResult = { error?: string } | void;
+export type DuplicateResult = {
+  duplicate: true;
+  id: string;
+  name: string;
+  cantidad: number;
+  unit: string;
+};
 
 export async function crearMaterial(
   formData: FormData,
-): Promise<ActionResult> {
+): Promise<ActionResult | DuplicateResult> {
   const supabase = createClient();
   const {
     data: { user },
@@ -27,6 +34,29 @@ export async function crearMaterial(
     return { error: "Cantidad inicial inválida." };
   if (!Number.isFinite(umbral) || umbral < 0)
     return { error: "Umbral inválido." };
+
+  const { data: existing, error: errExists } = await supabase
+    .from("materials")
+    .select("id, name, cantidad, unit")
+    .ilike("name", name)
+    .limit(1);
+  if (errExists)
+    return { error: mensajeError(errExists, "No se pudo verificar el material.") };
+  if (existing && existing.length > 0) {
+    const dup = existing[0] as {
+      id: string;
+      name: string;
+      cantidad: number;
+      unit: string;
+    };
+    return {
+      duplicate: true,
+      id: dup.id,
+      name: dup.name,
+      cantidad: Number(dup.cantidad),
+      unit: dup.unit,
+    };
+  }
 
   const { error } = await supabase.rpc("crear_material", {
     p_name: name,

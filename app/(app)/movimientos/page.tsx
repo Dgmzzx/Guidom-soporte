@@ -1,15 +1,19 @@
-export default function MovimientosPlaceholder() {
+import { getInventoryData } from "@/lib/queries";
+import MovementsForm from "@/components/movements/MovementsForm";
+import MovementsTable from "@/components/movements/MovementsTable";
+
+export default async function MovimientosPage() {
+  const { materials, movements } = await getInventoryData();
+
+  const materialNames: Record<string, string> = {};
+  materials.forEach((m) => {
+    materialNames[m.id] = m.name;
+  });
+
   return (
-    <div className="rounded-lg border border-line bg-steel p-10 text-center">
-      <p className="font-mono text-[11px] uppercase tracking-widest2 text-safety">
-        Parte 7
-      </p>
-      <h1 className="mt-2 font-display text-xl font-bold text-paper">
-        Vista Movimientos
-      </h1>
-      <p className="mt-1 text-sm text-paper-dim">
-        En construcción — se implementa en la Parte 7.
-      </p>
+    <div className="flex flex-col gap-6">
+      <MovementsForm materials={materials} />
+      <MovementsTable movements={movements} materialNames={materialNames} />
     </div>
   );
 }
